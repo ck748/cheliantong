@@ -95,17 +95,32 @@
             font-size: 15px;
         }
 
+        /* 零部件带图片布局 */
         .list-item {
             background: rgba(114, 216, 255, 0.07);
             border-radius: 14px;
             padding: 20px;
             margin-bottom: 16px;
             border-left: 3px solid #72d8ff;
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
             transition: 0.25s ease;
         }
         .list-item:hover {
             background: rgba(114, 216, 255, 0.11);
             transform: translateY(-2px);
+        }
+        .part-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid rgba(114,216,255,0.2);
+        }
+        .part-content {
+            flex: 1;
         }
         .item-main {
             font-size: 18px;
@@ -124,7 +139,6 @@
             color: #89b3d8;
         }
 
-        /* 上链状态徽章 */
         .chain-badge {
             display: inline-block;
             background: rgba(114, 216, 255, 0.2);
@@ -143,6 +157,11 @@
             color: #799fc2;
             opacity: 0.8;
         }
+
+        @media(max-width:720px){
+            .list-item{flex-direction:column;}
+            .part-img{width:100%;height:auto;}
+        }
     </style>
 </head>
 <body>
@@ -152,7 +171,6 @@
         <p>单车全生命周期生产｜质检｜供应链｜合规｜上链完整档案</p>
     </div>
 
-    <!-- 一、车辆基础合规档案 -->
     <div class="card">
         <div class="card-title">一、车辆基础合规档案</div>
         <div class="info-row">
@@ -185,53 +203,66 @@
         </div>
     </div>
 
-    <!-- 二、核心零部件供应链溯源档案 -->
     <div class="card">
-        <div class="card-title">二、核心零部件供应链溯源档案</div>
+        <div class="card-title">二、核心零部件供应链溯源档案（带实拍图）</div>
+
         <div class="list-item">
-            <div class="item-main">动力电池总成系统</div>
-            <div class="item-desc">原厂供应商：重庆比亚迪锂电池有限公司<br>电芯批次编号：BAT20241220-CQ08<br>原厂质保周期：8年/16万公里终身溯源绑定<br>质检等级：A类一级良品，全流程溯源上链备案</div>
+            <img class="part-img" src="./u=244381529,770096399&fm=253&fmt=auto&app=120&f=JPEG.webp" alt="动力电池">
+            <div class="part-content">
+                <div class="item-main">动力电池总成系统</div>
+                <div class="item-desc">原厂供应商：重庆比亚迪锂电池有限公司<br>电芯批次编号：BAT20241220-CQ08<br>原厂质保：8年/16万公里终身溯源绑定<br>质检等级：A类一级良品，全流程溯源上链备案</div>
+            </div>
         </div>
+
         <div class="list-item">
-            <div class="item-main">高压驱动电机总成</div>
-            <div class="item-desc">原厂供应商：重庆长安新能源电机研究院<br>产品型号：永磁同步高效率驱动电机 M2000<br>出厂耐压测试、绝缘测试、负载测试全部合格<br>零部件唯一编码链上加密锁定</div>
+            <img class="part-img" src="./2.webp" alt="驱动电机">
+            <div class="part-content">
+                <div class="item-main">高压驱动电机总成</div>
+                <div class="item-desc">原厂供应商：重庆长安新能源电机研究院<br>型号：永磁同步高效率驱动电机 M2000<br>耐压/绝缘/负载测试全部合格<br>零部件唯一编码链上加密锁定</div>
+            </div>
         </div>
+
         <div class="list-item">
-            <div class="item-main">整车智能电控管理单元</div>
-            <div class="item-desc">原厂供应商：华为数字能源事业部<br>系统固件版本：V3.1全域安全管理系统<br>出厂标定、能耗校准、安全策略全部固化归档<br>电控全生命周期数据区块链永久留存</div>
+            <img class="part-img" src="./3.webp" alt="电控系统">
+            <div class="part-content">
+                <div class="item-main">整车智能电控管理单元</div>
+                <div class="item-desc">原厂供应商：华为数字能源事业部<br>固件版本：V3.1全域安全管理系统<br>出厂标定、能耗校准、安全策略固化归档<br>电控全生命周期数据区块链永久留存</div>
+            </div>
         </div>
+
         <div class="list-item">
-            <div class="item-main">车桥半轴传动总成</div>
-            <div class="item-desc">原厂供应商：重庆齿轮箱有限责任公司<br>材质规格：航空级高强度合金钢精密锻造<br>探伤检测、疲劳测试、扭力极限测试全部达标<br>关键安全部件独立溯源加密存档</div>
+            <img class="part-img" src="./4.webp" alt="车桥半轴">
+            <div class="part-content">
+                <div class="item-main">车桥半轴传动总成</div>
+                <div class="item-desc">原厂供应商：重庆齿轮箱有限责任公司<br>材质：航空级高强度合金钢精密锻造<br>探伤/疲劳/扭力极限测试全部达标<br>关键安全部件独立溯源加密存档</div>
+            </div>
         </div>
     </div>
 
-    <!-- 三、整车生产全流程记录档案 -->
     <div class="card">
         <div class="card-title">三、整车工厂生产全流程档案</div>
-        <div class="list-item">
+        <div class="list-item" style="display:block;">
             <div class="item-main">零部件入库核验与溯源建档</div>
             <div class="item-desc">全部核心零部件进厂逐件核验编号、批次、合格证、质检报告；供应链数据同步录入区块链溯源平台，建立单车专属档案。</div>
             <div class="item-time">流程节点时间：2024年12月25日</div>
         </div>
-        <div class="list-item">
-            <div class="item-main">自动化车身焊装与涂装工艺完成</div>
-            <div class="item-desc">机器人全自动焊装工位作业完成；多层防腐电泳+环保漆面喷涂工艺验收合格；车身钢印VIN编码同步写入溯源系统。</div>
+        <div class="list-item" style="display:block;">
+            <div class="item-main">自动化焊装与涂装工艺完成</div>
+            <div class="item-desc">机器人全自动焊装工位作业完成；多层防腐电泳+环保漆面喷涂验收合格；车身VIN钢印同步写入溯源系统。</div>
             <div class="item-time">流程节点时间：2024年12月30日</div>
         </div>
-        <div class="list-item">
+        <div class="list-item" style="display:block;">
             <div class="item-main">整车总装流水线完整装配作业</div>
-            <div class="item-desc">底盘系统、动力系统、电控系统、内饰系统全工位标准化装配；每一道工序完成扫码确认，生产日志实时链上存证。</div>
+            <div class="item-desc">底盘、动力、电控、内饰全工位标准化装配；每工序扫码确认，生产日志实时链上存证。</div>
             <div class="item-time">流程节点时间：2025年01月08日</div>
         </div>
-        <div class="list-item">
+        <div class="list-item" style="display:block;">
             <div class="item-main">整车出厂综合性能全项检测</div>
-            <div class="item-desc">动力测试、制动测试、绝缘安全测试、密封淋雨测试、智能系统联动测试全部通过；整车出厂质检报告电子化归档上链。</div>
+            <div class="item-desc">动力、制动、绝缘、淋雨、智能联动全部通过；质检报告电子化归档上链固化。</div>
             <div class="item-time">流程节点时间：2025年01月10日</div>
         </div>
     </div>
 
-    <!-- 四、区块链上链凭证信息（新增完整模块） -->
     <div class="card">
         <div class="card-title">四、区块链上链存证凭证信息</div>
         <div class="info-row">
@@ -243,61 +274,59 @@
             <div class="info-value value-chain">#18,926,451</div>
         </div>
         <div class="info-row">
-            <div class="info-label">上链合约地址</div>
+            <div class="info-label">智能合约地址</div>
             <div class="info-value hash-text">0x8D2fEaC7B9A1D2E3F4G5H6I7J8K9L0M1N2O3P4Q5R6S7T8U9V0</div>
         </div>
         <div class="info-row">
-            <div class="info-label">上链存证时间</div>
+            <div class="info-label">正式上链时间</div>
             <div class="info-value value-chain">2025-01-12 14:35:22 (UTC+8)</div>
         </div>
         <div class="info-row">
-            <div class="info-label">上链确认节点数</div>
-            <div class="info-value value-chain">12 / 16 联盟节点已确认</div>
+            <div class="info-label">联盟节点确认数量</div>
+            <div class="info-value value-chain">12 / 16 节点共识完成</div>
         </div>
         <div class="info-row">
-            <div class="info-label">整车数据哈希指纹</div>
+            <div class="info-label">整车档案数据指纹</div>
             <div class="info-value hash-text">0x9A3B7C2D8E1F5G6H7J8K9L0M2N4P6R8S0T2V5W7X9Z1</div>
         </div>
         <div class="info-row">
             <div class="info-label">存证状态</div>
-            <div class="info-value value-chain">✅ 永久存证 · 不可篡改 · 可全网核验</div>
+            <div class="info-value value-chain">✅ 永久存证 · 全网可核验不可篡改</div>
         </div>
     </div>
 
-    <!-- 五、出厂物流与交付流程档案 -->
     <div class="card">
         <div class="card-title">五、出厂物流与交付流程档案</div>
-        <div class="list-item">
+        <div class="list-item" style="display:block;">
             <div class="item-main">工厂成品库入库封存管理</div>
             <div class="item-desc">整车完成出厂手续后入库封存保护；车辆状态、电量、防护记录全部登记溯源系统存档。</div>
             <div class="item-time">节点时间：2025年01月12日</div>
         </div>
-        <div class="list-item">
+        <div class="list-item" style="display:block;">
             <div class="item-main">大板物流整车安全发运</div>
-            <div class="item-desc">合规物流承运商全程监控运输轨迹；运输途中防护检查记录实时上传平台备案留痕。</div>
+            <div class="item-desc">合规物流承运商全程监控运输轨迹；途中防护检查实时上传备案留痕。</div>
             <div class="item-time">节点时间：2025年01月13日</div>
         </div>
-        <div class="list-item">
+        <div class="list-item" style="display:block;">
             <div class="item-main">授权经销商门店验收入库</div>
-            <div class="item-desc">车辆到店外观、里程、功能全项复检核对；物流交接单据电子化归档同步溯源档案。</div>
+            <div class="item-desc">车辆到店外观、里程、功能全项复检核对；物流单据电子化同步溯源档案。</div>
             <div class="item-time">节点时间：2025年01月15日</div>
         </div>
     </div>
 
-    <!-- 六、区块链安全存证说明 -->
     <div class="card">
         <div class="card-title">六、区块链安全存证技术说明</div>
-        <div class="list-item">
-            <div class="item-main">去中心化联盟链多节点共识机制</div>
-            <div class="item-desc">车辆所有档案分散存储在多个可信联盟节点，单一节点无法篡改数据；任何修改都会全网校验失效，保障生产溯源真实可信。</div>
+        <div class="list-item" style="display:block;">
+            <div class="item-main">联盟链多节点共识防篡改</div>
+            <div class="item-desc">档案分散存储多个可信节点，单点无法篡改；修改全网校验失效，保障溯源真实可信。</div>
         </div>
-        <div class="list-item">
-            <div class="item-main">数据哈希指纹全局唯一锁定</div>
-            <div class="item-desc">整车全量档案自动生成不可逆加密哈希值；一旦资料被篡改，哈希立即变化，系统自动识别异常并预警风险。</div>
+        <div class="list-item" style="display:block;">
+            <div class="item-main">全局唯一哈希指纹锁定数据</div>
+            <div class="item-desc">整车全量档案自动生成不可逆加密哈希；一旦篡改哈希立即变化，系统自动识别异常。</div>
         </div>
-        <div class="list-item">
-            <div class="item-main">全生命周期永久可追溯可核验</div>
-            <div class="item-desc">从零部件进厂、生产装配、质检出厂到物流交付，全程每一个节点均可随时线上核验溯源，形成完整可信闭环。</div>
+        <div class="list-item" style="display:block;">
+            <div class="item-main">全生命周期永久溯源核验闭环</div>
+            <div class="item-desc">从零部件进厂、生产装配、质检出厂到物流交付，全节点随时线上核验溯源。</div>
         </div>
     </div>
 
