@@ -3,649 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>车链通 - 一码链全程 路演演示版</title>
+    <title>车链通 · 区块链溯源档案系统</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", "思源黑体", sans-serif;
         }
-
         body {
-            background: linear-gradient(135deg, #1a2a4a 0%, #2d3f5f 100%);
-            color: #ffffff;
+            background: linear-gradient(145deg, #061022, #0f1e3b);
+            font-family: "Microsoft YaHei", "Inter", sans-serif;
+            color: #e8f2ff;
+            padding: 40px 20px;
             min-height: 100vh;
-            padding: 20px;
         }
-
         .container {
             max-width: 900px;
             margin: 0 auto;
         }
 
-        /* 头部标题 + 车辆切换 */
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 45px;
         }
         .header h1 {
-            font-size: 32px;
-            color: #64f0ff;
-            margin-bottom: 6px;
-            font-weight: bold;
+            font-size: 36px;
+            background: linear-gradient(90deg, #72d8ff, #25a6e9);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
         .header p {
-            font-size: 16px;
-            color: #c0e8ff;
+            color: #9fc8e8;
+            font-size: 17px;
             opacity: 0.9;
-            margin-bottom: 15px;
-        }
-        .car-switch {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .car-switch button {
-            background: rgba(100, 240, 255, 0.15);
-            border: 1px solid rgba(100, 240, 255, 0.3);
-            color: #64f0ff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-        .car-switch button.active {
-            background: rgba(100, 240, 255, 0.3);
-            border-color: #64f0ff;
-        }
-        .car-switch button:hover {
-            background: rgba(100, 240, 255, 0.25);
         }
 
-        /* 二维码区域（核心修复：确保显示） */
-        .qrcode-wrapper {
-            width: 240px;
-            height: 240px;
-            background: #ffffff;
-            margin: 0 auto 30px;
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* 强制显示，避免被隐藏 */
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-        #qrcode {
-            width: 100% !important;
-            height: 100% !important;
-            display: block !important;
-        }
-
-        /* 通用卡片样式 */
-        .info-card {
-            background: rgba(45, 63, 95, 0.7);
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(100, 240, 255, 0.15);
+        .card {
+            background: rgba(22, 40, 70, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(114, 216, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px 32px;
+            margin-bottom: 26px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
         }
         .card-title {
-            font-size: 20px;
-            color: #64f0ff;
-            margin-bottom: 20px;
+            font-size: 22px;
+            color: #72d8ff;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: bold;
+            gap: 12px;
+            margin-bottom: 24px;
         }
         .card-title::before {
             content: "";
-            width: 4px;
-            height: 20px;
-            background: #64f0ff;
-            border-radius: 2px;
+            width: 5px;
+            height: 22px;
+            background: linear-gradient(180deg,#72d8ff,#25a6e9);
+            border-radius: 3px;
         }
 
-        /* 车辆基础信息行 */
         .info-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px dashed rgba(100, 240, 255, 0.2);
+            padding: 14px 0;
+            border-bottom: 1px dashed rgba(114, 216, 255, 0.18);
+            font-size: 16px;
         }
         .info-row:last-child {
             border-bottom: none;
         }
         .info-label {
-            font-size: 16px;
-            color: #e0f5ff;
+            color: #b8d8f2;
         }
         .info-value {
-            font-size: 16px;
             color: #ffffff;
             font-weight: 500;
         }
-        .info-value.chain-status {
-            color: #64f0ff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .info-value.chain-status::before {
-            content: "✅";
-            font-size: 14px;
-        }
-
-        /* 零部件列表 */
-        .parts-item {
-            background: rgba(60, 80, 110, 0.5);
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 12px;
-            transition: all 0.2s ease;
-        }
-        .parts-item:last-child {
-            margin-bottom: 0;
-        }
-        .parts-item:hover {
-            background: rgba(100, 240, 255, 0.1);
-            transform: translateX(4px);
-        }
-        .parts-name {
-            font-size: 17px;
-            color: #64f0ff;
+        .value-chain {
+            color: #72d8ff;
             font-weight: bold;
-            margin-bottom: 6px;
         }
-        .parts-desc {
-            font-size: 14px;
-            color: #d0e8ff;
-            line-height: 1.6;
-        }
-
-        /* 物流/维修记录列表 */
-        .record-item {
-            background: rgba(60, 80, 110, 0.5);
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .record-info {
-            flex: 1;
-        }
-        .record-title {
-            font-size: 16px;
-            color: #64f0ff;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-        .record-desc {
-            font-size: 14px;
-            color: #d0e8ff;
-            line-height: 1.5;
-        }
-        .record-time {
-            font-size: 13px;
-            color: #a0c8e8;
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-
-        /* 区块链存证栏 + 核验按钮 */
-        .chain-bar {
-            background: rgba(100, 240, 255, 0.1);
-            border-radius: 12px;
-            padding: 14px 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .chain-bar p {
+        .hash-text {
+            font-family: monospace;
+            color: #72d8ff;
+            word-break: break-all;
             font-size: 15px;
-            color: #64f0ff;
-            font-weight: 500;
         }
-        .verify-btn {
-            background: #64f0ff;
-            color: #1a2a4a;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+
+        .list-item {
+            background: rgba(114, 216, 255, 0.07);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 3px solid #72d8ff;
+            transition: 0.25s ease;
         }
-        .verify-btn:hover {
-            background: #4cd9e6;
+        .list-item:hover {
+            background: rgba(114, 216, 255, 0.11);
             transform: translateY(-2px);
         }
-
-        /* 哈希核验弹窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background: #2d3f5f;
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 600px;
-            width: 100%;
-            border: 1px solid rgba(100, 240, 255, 0.3);
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 24px;
-            color: #a0c8e8;
-            cursor: pointer;
-        }
-        .modal-title {
-            font-size: 22px;
-            color: #64f0ff;
-            margin-bottom: 20px;
-            text-align: center;
+        .item-main {
+            font-size: 18px;
+            color: #72d8ff;
             font-weight: bold;
+            margin-bottom: 8px;
         }
-        .modal-desc {
+        .item-desc {
+            font-size: 15px;
+            color: #c9e0f5;
+            line-height: 1.7;
+        }
+        .item-time {
+            margin-top: 10px;
             font-size: 14px;
-            color: #d0e8ff;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: center;
+            color: #89b3d8;
         }
-        .hash-box {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            word-break: break-all;
-            font-family: monospace;
+
+        /* 上链状态徽章 */
+        .chain-badge {
+            display: inline-block;
+            background: rgba(114, 216, 255, 0.2);
+            color: #72d8ff;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-size: 13px;
-            color: #64f0ff;
-        }
-        .verify-result {
-            text-align: center;
-            font-size: 16px;
-            color: #10b981;
             font-weight: bold;
+            margin-left: 8px;
         }
 
-        /* 底部版权 */
-        .footer {
+        footer {
             text-align: center;
-            font-size: 13px;
-            color: #a0c8e8;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #799fc2;
             opacity: 0.8;
-            margin-top: 30px;
-        }
-
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .info-row {
-                flex-direction: column;
-                gap: 4px;
-            }
-            .record-item {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .record-time {
-                margin-left: 0;
-            }
-            .chain-bar {
-                flex-direction: column;
-                text-align: center;
-            }
-            .header h1 {
-                font-size: 26px;
-            }
-            .qrcode-wrapper {
-                width: 200px;
-                height: 200px;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 头部标题 + 车辆切换 -->
-        <div class="header">
-            <h1>车链通 · 一码链全程</h1>
-            <p>基于区块链的汽车全生命周期可信溯源平台 · 路演演示版</p>
-            <div class="car-switch">
-                <button class="active" data-car="car1">车辆1：智能纯电动SUV</button>
-                <button data-car="car2">车辆2：家用燃油轿车</button>
-                <button data-car="car3">车辆3：新能源MPV</button>
-            </div>
-        </div>
+<div class="container">
+    <div class="header">
+        <h1>车链通 · 区块链溯源档案系统</h1>
+        <p>单车全生命周期生产｜质检｜供应链｜合规｜上链完整档案</p>
+    </div>
 
-        <!-- 可扫码的二维码（核心修复：强制显示） -->
-        <div class="qrcode-wrapper">
-            <canvas id="qrcode"></canvas>
+    <!-- 一、车辆基础合规档案 -->
+    <div class="card">
+        <div class="card-title">一、车辆基础合规档案</div>
+        <div class="info-row">
+            <div class="info-label">车辆识别代号（VIN）</div>
+            <div class="info-value">LSGBH5488PS123456</div>
         </div>
-
-        <!-- 车辆基础信息卡片 -->
-        <div class="info-card">
-            <div class="card-title">车辆基础信息</div>
-            <div class="info-row">
-                <div class="info-label">车辆识别代号（VIN）</div>
-                <div class="info-value" id="vin">LSGBH5488PS123456</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">车辆型号</div>
-                <div class="info-value" id="car-model">智能纯电动SUV</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">生产企业</div>
-                <div class="info-value" id="factory">重庆赛力斯汽车有限公司</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">出厂日期</div>
-                <div class="info-value" id="produce-date">2025-01-12</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">上链状态</div>
-                <div class="info-value chain-status">区块链存证 · 不可篡改</div>
-            </div>
+        <div class="info-row">
+            <div class="info-label">车辆官方型号</div>
+            <div class="info-value">智能纯电动旗舰SUV</div>
         </div>
-
-        <!-- 核心零部件溯源信息卡片 -->
-        <div class="info-card">
-            <div class="card-title">核心零部件溯源信息</div>
-            <div id="parts-container">
-                <!-- 动态加载零部件 -->
-            </div>
+        <div class="info-row">
+            <div class="info-label">整车生产制造企业</div>
+            <div class="info-value">重庆赛力斯汽车有限公司</div>
         </div>
-
-        <!-- 物流交付记录卡片 -->
-        <div class="info-card">
-            <div class="card-title">物流交付全流程记录</div>
-            <div id="logistics-container">
-                <!-- 动态加载物流记录 -->
-            </div>
+        <div class="info-row">
+            <div class="info-label">整车出厂生产日期</div>
+            <div class="info-value">2025年01月12日</div>
         </div>
-
-        <!-- 维修保养记录卡片 -->
-        <div class="info-card">
-            <div class="card-title">官方维修保养记录</div>
-            <div id="maintain-container">
-                <!-- 动态加载维修记录 -->
-            </div>
+        <div class="info-row">
+            <div class="info-label">工信部车辆公告备案号</div>
+            <div class="info-value">SC2024新能源0789备案</div>
         </div>
-
-        <!-- 区块链存证栏 + 核验按钮 -->
-        <div class="chain-bar">
-            <p>数据已上链存证 | 哈希值：<span id="hash-value">0x7F2D9C3E1A5B78901234567890ABCDEF</span></p>
-            <button class="verify-btn" id="verify-btn">核验数据真实性</button>
+        <div class="info-row">
+            <div class="info-label">整车环保一致性证书编号</div>
+            <div class="info-value">HB-2025-CQ-012569</div>
         </div>
-
-        <!-- 底部版权 -->
-        <div class="footer">
-            车链通 © 2025 挑战杯路演演示系统 | 一车一码 · 全程可溯
+        <div class="info-row">
+            <div class="info-label">区块链全域存证状态</div>
+            <div class="info-value value-chain">✅ 联盟链固化 · 全程不可篡改 <span class="chain-badge">已上链</span></div>
         </div>
     </div>
 
-    <!-- 哈希核验弹窗 -->
-    <div class="modal" id="verify-modal">
-        <div class="modal-content">
-            <span class="modal-close" id="modal-close">&times;</span>
-            <div class="modal-title">区块链数据真实性核验</div>
-            <div class="modal-desc">
-                区块链哈希值是数据的唯一数字指纹，一旦数据被篡改，哈希值将完全不同。本系统通过联盟链存证，确保车辆全生命周期数据真实有效、不可篡改。
-            </div>
-            <div class="hash-box">
-                当前车辆数据哈希值：<span id="modal-hash">0x7F2D9C3E1A5B78901234567890ABCDEF</span>
-            </div>
-            <div class="verify-result">✅ 核验通过：数据未篡改，真实可信</div>
+    <!-- 二、核心零部件供应链溯源档案 -->
+    <div class="card">
+        <div class="card-title">二、核心零部件供应链溯源档案</div>
+        <div class="list-item">
+            <div class="item-main">动力电池总成系统</div>
+            <div class="item-desc">原厂供应商：重庆比亚迪锂电池有限公司<br>电芯批次编号：BAT20241220-CQ08<br>原厂质保周期：8年/16万公里终身溯源绑定<br>质检等级：A类一级良品，全流程溯源上链备案</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">高压驱动电机总成</div>
+            <div class="item-desc">原厂供应商：重庆长安新能源电机研究院<br>产品型号：永磁同步高效率驱动电机 M2000<br>出厂耐压测试、绝缘测试、负载测试全部合格<br>零部件唯一编码链上加密锁定</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">整车智能电控管理单元</div>
+            <div class="item-desc">原厂供应商：华为数字能源事业部<br>系统固件版本：V3.1全域安全管理系统<br>出厂标定、能耗校准、安全策略全部固化归档<br>电控全生命周期数据区块链永久留存</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">车桥半轴传动总成</div>
+            <div class="item-desc">原厂供应商：重庆齿轮箱有限责任公司<br>材质规格：航空级高强度合金钢精密锻造<br>探伤检测、疲劳测试、扭力极限测试全部达标<br>关键安全部件独立溯源加密存档</div>
         </div>
     </div>
 
-    <!-- 二维码生成库（CDN引入，确保加载成功） -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-    <script>
-        // ==================== 车辆数据（可扩展多车） ====================
-        const carData = {
-            car1: {
-                vin: "LSGBH5488PS123456",
-                model: "智能纯电动SUV",
-                factory: "重庆赛力斯汽车有限公司",
-                produceDate: "2025-01-12",
-                hash: "0x7F2D9C3E1A5B78901234567890ABCDEF",
-                parts: [
-                    {name: "动力电池", desc: "生产：重庆比亚迪锂电池有限公司<br>批次：BAT20241220 | 质保：8年/16万公里"},
-                    {name: "驱动电机", desc: "生产：重庆长安新能源电机厂<br>型号：M2000 | 质检状态：合格"},
-                    {name: "电控系统", desc: "生产：华为数字能源<br>版本：V3.1 | 标定日期：2025-01-09"},
-                    {name: "变速箱", desc: "生产：重庆青山工业<br>类型：单级减速器 | 防伪码：GX789456123"},
-                    {name: "车桥半轴", desc: "生产：重庆齿轮箱有限责任公司<br>材质：高强度合金钢 | 质检：合格"}
-                ],
-                logistics: [
-                    {title: "零部件入厂", desc: "核心零部件运抵整车工厂，完成入厂质检", time: "2024-12-25"},
-                    {title: "整车装配", desc: "完成车辆全流程装配，下线质检合格", time: "2025-01-10"},
-                    {title: "工厂出库", desc: "车辆从重庆工厂发运，发往重庆4S店", time: "2025-01-13"},
-                    {title: "4S店入库", desc: "车辆抵达重庆XX授权4S店，完成入库验收", time: "2025-01-15"},
-                    {title: "用户提车", desc: "车辆交付用户，完成PDI检测", time: "2025-01-20"}
-                ],
-                maintain: [
-                    {title: "首次免费保养", desc: "更换机油、机滤，完成全车检测，4S店：重庆XX授权店", time: "2025-07-20"},
-                    {title: "常规保养", desc: "更换空调滤芯、刹车油，检查电池健康度", time: "2026-01-20"},
-                    {title: "召回升级", desc: "电控系统软件升级，官方召回项目，无安全隐患", time: "2026-03-10"}
-                ]
-            },
-            car2: {
-                vin: "LSGJA54U8PS654321",
-                model: "家用燃油轿车",
-                factory: "重庆长安汽车股份有限公司",
-                produceDate: "2025-02-15",
-                hash: "0x8A3E7D2C9B1F4567890ABCDEF1234567",
-                parts: [
-                    {name: "发动机", desc: "生产：长安汽车动力研究院<br>型号：JL473ZQ5 | 质检：合格"},
-                    {name: "变速箱", desc: "生产：重庆青山工业<br>类型：7DCT | 防伪码：QS123456789"},
-                    {name: "车桥半轴", desc: "生产：重庆齿轮箱有限责任公司<br>材质：高强度合金钢 | 质检：合格"},
-                    {name: "制动系统", desc: "生产：博世汽车部件（苏州）<br>型号：ESP9.0 | 批次：BS20250110"},
-                    {name: "转向系统", desc: "生产：重庆长安底盘零部件有限公司<br>质检：合格"}
-                ],
-                logistics: [
-                    {title: "零部件入厂", desc: "核心零部件运抵整车工厂，完成入厂质检", time: "2025-01-20"},
-                    {title: "整车装配", desc: "完成车辆全流程装配，下线质检合格", time: "2025-02-12"},
-                    {title: "工厂出库", desc: "车辆从重庆工厂发运，发往成都4S店", time: "2025-02-16"},
-                    {title: "4S店入库", desc: "车辆抵达成都XX授权4S店，完成入库验收", time: "2025-02-18"},
-                    {title: "用户提车", desc: "车辆交付用户，完成PDI检测", time: "2025-02-25"}
-                ],
-                maintain: [
-                    {title: "首次免费保养", desc: "更换机油、机滤，完成全车检测，4S店：成都XX授权店", time: "2025-08-25"},
-                    {title: "常规保养", desc: "更换机油、三滤，检查底盘、轮胎", time: "2026-02-25"},
-                    {title: "保修维修", desc: "更换左前减震器，厂家保修项目", time: "2026-05-10"}
-                ]
-            },
-            car3: {
-                vin: "LSGBH5488PS789012",
-                model: "新能源MPV",
-                factory: "重庆理想汽车有限公司",
-                produceDate: "2025-03-01",
-                hash: "0x9C4E8D3A2B1F567890ABCDEF12345678",
-                parts: [
-                    {name: "动力电池", desc: "生产：宁德时代新能源科技<br>批次：CATL20250215 | 质保：8年/16万公里"},
-                    {name: "驱动电机", desc: "生产：理想汽车自研电机厂<br>型号：M3000 | 质检：合格"},
-                    {name: "电控系统", desc: "生产：理想汽车电子<br>版本：V4.0 | 标定日期：2025-02-28"},
-                    {name: "空气悬架", desc: "生产：大陆汽车电子<br>型号：CC3.0 | 批次：CL20250220"},
-                    {name: "车桥半轴", desc: "生产：重庆齿轮箱有限责任公司<br>材质：高强度合金钢 | 质检：合格"}
-                ],
-                logistics: [
-                    {title: "零部件入厂", desc: "核心零部件运抵整车工厂，完成入厂质检", time: "2025-02-10"},
-                    {title: "整车装配", desc: "完成车辆全流程装配，下线质检合格", time: "2025-02-28"},
-                    {title: "工厂出库", desc: "车辆从重庆工厂发运，发往北京4S店", time: "2025-03-02"},
-                    {title: "4S店入库", desc: "车辆抵达北京XX授权4S店，完成入库验收", time: "2025-03-05"},
-                    {title: "用户提车", desc: "车辆交付用户，完成PDI检测", time: "2025-03-10"}
-                ],
-                maintain: [
-                    {title: "首次免费保养", desc: "更换空调滤芯，完成全车检测，4S店：北京XX授权店", time: "2025-09-10"},
-                    {title: "常规保养", desc: "更换刹车油、检查电池健康度", time: "2026-03-10"},
-                    {title: "软件升级", desc: "车机系统OTA升级，优化续航表现", time: "2026-04-05"}
-                ]
-            }
-        };
+    <!-- 三、整车生产全流程记录档案 -->
+    <div class="card">
+        <div class="card-title">三、整车工厂生产全流程档案</div>
+        <div class="list-item">
+            <div class="item-main">零部件入库核验与溯源建档</div>
+            <div class="item-desc">全部核心零部件进厂逐件核验编号、批次、合格证、质检报告；供应链数据同步录入区块链溯源平台，建立单车专属档案。</div>
+            <div class="item-time">流程节点时间：2024年12月25日</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">自动化车身焊装与涂装工艺完成</div>
+            <div class="item-desc">机器人全自动焊装工位作业完成；多层防腐电泳+环保漆面喷涂工艺验收合格；车身钢印VIN编码同步写入溯源系统。</div>
+            <div class="item-time">流程节点时间：2024年12月30日</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">整车总装流水线完整装配作业</div>
+            <div class="item-desc">底盘系统、动力系统、电控系统、内饰系统全工位标准化装配；每一道工序完成扫码确认，生产日志实时链上存证。</div>
+            <div class="item-time">流程节点时间：2025年01月08日</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">整车出厂综合性能全项检测</div>
+            <div class="item-desc">动力测试、制动测试、绝缘安全测试、密封淋雨测试、智能系统联动测试全部通过；整车出厂质检报告电子化归档上链。</div>
+            <div class="item-time">流程节点时间：2025年01月10日</div>
+        </div>
+    </div>
 
-        // ==================== 页面渲染函数 ====================
-        function renderCarData(carId) {
-            const data = carData[carId];
-            // 更新基础信息
-            document.getElementById("vin").textContent = data.vin;
-            document.getElementById("car-model").textContent = data.model;
-            document.getElementById("factory").textContent = data.factory;
-            document.getElementById("produce-date").textContent = data.produceDate;
-            document.getElementById("hash-value").textContent = data.hash;
-            document.getElementById("modal-hash").textContent = data.hash;
+    <!-- 四、区块链上链凭证信息（新增完整模块） -->
+    <div class="card">
+        <div class="card-title">四、区块链上链存证凭证信息</div>
+        <div class="info-row">
+            <div class="info-label">上链交易哈希（TX Hash）</div>
+            <div class="info-value hash-text">0x7F2D9C3E1A5B78901234567890ABCDEF1234567890ABCDEF12345678</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">上链区块高度</div>
+            <div class="info-value value-chain">#18,926,451</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">上链合约地址</div>
+            <div class="info-value hash-text">0x8D2fEaC7B9A1D2E3F4G5H6I7J8K9L0M1N2O3P4Q5R6S7T8U9V0</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">上链存证时间</div>
+            <div class="info-value value-chain">2025-01-12 14:35:22 (UTC+8)</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">上链确认节点数</div>
+            <div class="info-value value-chain">12 / 16 联盟节点已确认</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">整车数据哈希指纹</div>
+            <div class="info-value hash-text">0x9A3B7C2D8E1F5G6H7J8K9L0M2N4P6R8S0T2V5W7X9Z1</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">存证状态</div>
+            <div class="info-value value-chain">✅ 永久存证 · 不可篡改 · 可全网核验</div>
+        </div>
+    </div>
 
-            // 更新零部件
-            const partsContainer = document.getElementById("parts-container");
-            partsContainer.innerHTML = data.parts.map(part => `
-                <div class="parts-item">
-                    <div class="parts-name">${part.name}</div>
-                    <div class="parts-desc">${part.desc}</div>
-                </div>
-            `).join("");
+    <!-- 五、出厂物流与交付流程档案 -->
+    <div class="card">
+        <div class="card-title">五、出厂物流与交付流程档案</div>
+        <div class="list-item">
+            <div class="item-main">工厂成品库入库封存管理</div>
+            <div class="item-desc">整车完成出厂手续后入库封存保护；车辆状态、电量、防护记录全部登记溯源系统存档。</div>
+            <div class="item-time">节点时间：2025年01月12日</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">大板物流整车安全发运</div>
+            <div class="item-desc">合规物流承运商全程监控运输轨迹；运输途中防护检查记录实时上传平台备案留痕。</div>
+            <div class="item-time">节点时间：2025年01月13日</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">授权经销商门店验收入库</div>
+            <div class="item-desc">车辆到店外观、里程、功能全项复检核对；物流交接单据电子化归档同步溯源档案。</div>
+            <div class="item-time">节点时间：2025年01月15日</div>
+        </div>
+    </div>
 
-            // 更新物流记录
-            const logisticsContainer = document.getElementById("logistics-container");
-            logisticsContainer.innerHTML = data.logistics.map(log => `
-                <div class="record-item">
-                    <div class="record-info">
-                        <div class="record-title">${log.title}</div>
-                        <div class="record-desc">${log.desc}</div>
-                    </div>
-                    <div class="record-time">${log.time}</div>
-                </div>
-            `).join("");
+    <!-- 六、区块链安全存证说明 -->
+    <div class="card">
+        <div class="card-title">六、区块链安全存证技术说明</div>
+        <div class="list-item">
+            <div class="item-main">去中心化联盟链多节点共识机制</div>
+            <div class="item-desc">车辆所有档案分散存储在多个可信联盟节点，单一节点无法篡改数据；任何修改都会全网校验失效，保障生产溯源真实可信。</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">数据哈希指纹全局唯一锁定</div>
+            <div class="item-desc">整车全量档案自动生成不可逆加密哈希值；一旦资料被篡改，哈希立即变化，系统自动识别异常并预警风险。</div>
+        </div>
+        <div class="list-item">
+            <div class="item-main">全生命周期永久可追溯可核验</div>
+            <div class="item-desc">从零部件进厂、生产装配、质检出厂到物流交付，全程每一个节点均可随时线上核验溯源，形成完整可信闭环。</div>
+        </div>
+    </div>
 
-            // 更新维修记录
-            const maintainContainer = document.getElementById("maintain-container");
-            maintainContainer.innerHTML = data.maintain.map(m => `
-                <div class="record-item">
-                    <div class="record-info">
-                        <div class="record-title">${m.title}</div>
-                        <div class="record-desc">${m.desc}</div>
-                    </div>
-                    <div class="record-time">${m.time}</div>
-                </div>
-            `).join("");
-
-            // 生成二维码（核心修复：使用canvas，确保生成成功）
-            const qrUrl = `${window.location.origin}${window.location.pathname}?vin=${data.vin}`;
-            const qrCanvas = document.getElementById('qrcode');
-            
-            // 清空canvas，避免重复生成
-            const ctx = qrCanvas.getContext('2d');
-            ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
-            
-            // 生成二维码
-            QRCode.toCanvas(qrCanvas, qrUrl, {
-                width: 210,
-                margin: 1,
-                color: {
-                    dark: "#1a2a4a",
-                    light: "#ffffff"
-                }
-            }, function (error) {
-                if (error) {
-                    console.error("二维码生成失败：", error);
-                    // 失败重试
-                    setTimeout(() => {
-                        QRCode.toCanvas(qrCanvas, qrUrl, {
-                            width: 210,
-                            margin: 1,
-                            color: {
-                                dark: "#1a2a4a",
-                                light: "#ffffff"
-                            }
-                        });
-                    }, 500);
-                }
-            });
-        }
-
-        // ==================== 车辆切换逻辑 ====================
-        const switchBtns = document.querySelectorAll(".car-switch button");
-        switchBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                // 切换激活状态
-                switchBtns.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                // 渲染对应车辆数据
-                renderCarData(btn.dataset.car);
-            });
-        });
-
-        // ==================== 弹窗逻辑 ====================
-        const modal = document.getElementById("verify-modal");
-        const verifyBtn = document.getElementById("verify-btn");
-        const modalClose = document.getElementById("modal-close");
-
-        verifyBtn.addEventListener("click", () => {
-            modal.style.display = "flex";
-        });
-
-        modalClose.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-
-        // 点击弹窗外部关闭
-        modal.addEventListener("click", (e) => {
-            if (e.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
-        // ==================== 初始化页面 ====================
-        // 等待页面完全加载后再生成二维码，避免DOM未就绪
-        window.addEventListener('load', function() {
-            // 从URL获取VIN，实现扫码跳转对应车辆
-            const urlParams = new URLSearchParams(window.location.search);
-            const vinParam = urlParams.get("vin");
-            let initialCar = "car1";
-            if (vinParam) {
-                // 根据VIN匹配对应车辆
-                Object.keys(carData).forEach(key => {
-                    if (carData[key].vin === vinParam) {
-                        initialCar = key;
-                        // 切换按钮激活状态
-                        switchBtns.forEach(btn => {
-                            if (btn.dataset.car === key) {
-                                btn.classList.add("active");
-                            } else {
-                                btn.classList.remove("active");
-                            }
-                        });
-                    }
-                });
-            }
-            // 渲染初始车辆数据（包含二维码）
-            renderCarData(initialCar);
-        });
-    </script>
+    <footer>车链通 · 区块链汽车全生命周期溯源管理系统</footer>
+</div>
 </body>
 </html>
