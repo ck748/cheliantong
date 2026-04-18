@@ -13,39 +13,49 @@
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: #f2f3f5;
+  background: #f0f2f5;
   max-width: 480px;
   margin: 0 auto;
   color: #333;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
 }
 .header {
-  background: #1677ff;
+  background: linear-gradient(135deg, #0052d9, #4080ff);
   color: #fff;
-  padding: 20px 16px;
+  padding: 32px 16px;
   text-align: center;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 82, 217, 0.25);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 .tabs {
   display: flex;
-  background: #fff;
+  background: #ffffff;
   position: sticky;
   top: 0;
   z-index: 10;
+  margin: 12px;
+  border-radius: 16px;
+  padding: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 .tab {
   flex: 1;
   text-align: center;
-  padding: 14px 0;
+  padding: 12px 0;
   font-size: 15px;
   color: #666;
-  border-bottom: 2px solid transparent;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 .tab.active {
-  color: #1677ff;
-  border-color: #1677ff;
-  font-weight: 500;
+  color: #fff;
+  background: #0052d9;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 82, 217, 0.3);
 }
 .page {
   display: none;
@@ -53,117 +63,147 @@ body {
 }
 .page.show {
   display: block;
+  animation: fadeIn 0.35s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .card {
   background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255,255,255,0.8);
 }
 .card h3 {
-  font-size: 16px;
-  margin-bottom: 12px;
-  color: #333;
-  padding-left: 8px;
-  border-left: 3px solid #1677ff;
+  font-size: 18px;
+  margin-bottom: 18px;
+  color: #111;
+  padding-left: 12px;
+  border-left: 4px solid #0052d9;
+  font-weight: 600;
 }
 .row {
   display: flex;
-  padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 15px;
 }
 .row:last-child {
   border-bottom: none;
 }
 .label {
   width: 100px;
-  color: #999;
+  color: #777;
+  font-weight: 500;
 }
 .value {
   flex: 1;
-  color: #333;
+  color: #222;
   font-weight: 500;
 }
 
-/* 配件列表 + 图片 */
+/* 配件列表 */
 .part-item {
   display: flex;
   align-items: center;
-  padding: 12px;
-  background: #f9fafc;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  padding: 16px;
+  background: #f9fbfd;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  transition: all 0.25s ease;
+  border: 1px solid #eaf2ff;
+}
+.part-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 82, 217, 0.08);
 }
 .part-img {
-  width: 60px;
-  height: 60px;
-  background: #eee;
-  border-radius: 8px;
-  margin-right: 12px;
+  width: 68px;
+  height: 68px;
+  background: linear-gradient(135deg, #eee, #f5f5f5);
+  border-radius: 14px;
+  margin-right: 16px;
   flex-shrink: 0;
   object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .part-info {
   flex: 1;
 }
 .part-name {
-  font-size: 15px;
-  font-weight: 500;
-  margin-bottom: 4px;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #222;
 }
 .part-code {
-  font-size: 12px;
+  font-size: 13px;
   color: #666;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .part-chain {
-  font-size: 12px;
-  color: #1677ff;
+  font-size: 13px;
+  color: #0052d9;
+  font-weight: 500;
 }
 .warn {
   color: #f53f3f;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 13px;
 }
 .success {
   color: #00b42a;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 13px;
 }
 
+/* 溯源 */
 .trace-item {
-  padding: 14px;
-  background: #f9fafc;
-  border-left: 3px solid #1677ff;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  padding: 18px;
+  background: #f9fbfd;
+  border-left: 4px solid #0052d9;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }
 .time {
-  font-size: 14px;
-  color: #1677ff;
-  font-weight: 500;
-  margin-bottom: 4px;
+  font-size: 16px;
+  color: #0052d9;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 .place {
-  font-size: 13px;
-  color: #666;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
 }
+
+/* 维保 */
 .maint-item {
-  padding: 14px;
-  background: #f9fafc;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  padding: 18px;
+  background: #f9fbfd;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.maint-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 82, 217, 0.08);
 }
 .maint-title {
-  font-size: 14px;
-  color: #333;
-  font-weight: 500;
-  margin-bottom: 4px;
+  font-size: 16px;
+  color: #222;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 .maint-desc {
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
+  line-height: 1.5;
 }
 </style>
 </head>
@@ -185,14 +225,16 @@ body {
     <div class="row"><span class="label">车辆型号</span><span class="value">荣威 RX5 1.5T 豪华型</span></div>
     <div class="row"><span class="label">出厂日期</span><span class="value">2023-06-15</span></div>
     <div class="row"><span class="label">发动机号</span><span class="value">15S4C123456789</span></div>
+    <div class="row"><span class="label">车架号</span><span class="value">LJ123456789012345</span></div>
     <div class="row"><span class="label">车主</span><span class="value">张先生</span></div>
+    <div class="row"><span class="label">使用城市</span><span class="value">河南省郑州市</span></div>
   </div>
 
   <div class="card">
-    <h3>核心配件列表</h3>
+    <h3>核心配件列表（共8项）</h3>
 
     <div class="part-item">
-      <img src="1.jpeg" class="part-img" alt="发动机">
+      <img src="./zongceng.jpg" class="part-img" alt="发动机">
       <div class="part-info">
         <div class="part-name">发动机总成</div>
         <div class="part-code">编号：PJ100120230615001</div>
@@ -202,7 +244,7 @@ body {
     </div>
 
     <div class="part-item">
-      <img src="2.jpeg" class="part-img" alt="变速箱">
+      <img src="./shuanglihebiansuxiang.jpg" class="part-img" alt="变速箱">
       <div class="part-info">
         <div class="part-name">双离合变速箱</div>
         <div class="part-code">编号：PJ200220230615002</div>
@@ -212,7 +254,7 @@ body {
     </div>
 
     <div class="part-item">
-      <img src="3.jpeg" class="part-img" alt="车载电控">
+      <img src="./chezaidiankongdanyuan.jpg" class="part-img" alt="车载电控">
       <div class="part-info">
         <div class="part-name">车载电控单元</div>
         <div class="part-code">编号：PJ300320230615003</div>
@@ -221,13 +263,51 @@ body {
       </div>
     </div>
 
-    <!-- 异常配件演示：维修厂偷偷换二手件 -->
     <div class="part-item">
-      <img src="4.jpeg" class="part-img" alt="空调压缩机">
+      <img src="./kongtiaoyasuoji.jpg" class="part-img" alt="空调压缩机">
       <div class="part-info">
         <div class="part-name">空调压缩机</div>
         <div class="part-code">编号：PJ400420230615004</div>
         <div class="warn">⚠ 非原厂配件 | 疑似二手拆车件</div>
+      </div>
+    </div>
+
+    <div class="part-item">
+      <img src="./ledqiandadeng.jpg" class="part-img" alt="前大灯">
+      <div class="part-info">
+        <div class="part-name">LED前大灯总成</div>
+        <div class="part-code">编号：PJ500520230615005</div>
+        <div class="part-chain">上链编号：BC0x9d3f1a72c5e8</div>
+        <div class="success">✔ 原厂全新件 | 验真通过</div>
+      </div>
+    </div>
+
+    <div class="part-item">
+      <img src="./qitingxudianchi.jpeg" class="part-img" alt="电瓶">
+      <div class="part-info">
+        <div class="part-name">启停蓄电池</div>
+        <div class="part-code">编号：PJ600620230615006</div>
+        <div class="part-chain">上链编号：BC0x2e5d8c1b7f9a</div>
+        <div class="success">✔ 原厂全新件 | 验真通过</div>
+      </div>
+    </div>
+
+    <div class="part-item">
+      <img src="./zhongkongduomeiti.jpg" class="part-img" alt="中控屏">
+      <div class="part-info">
+        <div class="part-name">中控多媒体屏</div>
+        <div class="part-code">编号：PJ700720230615007</div>
+        <div class="part-chain">上链编号：BC0x5a1f9d3c7b2e</div>
+        <div class="success">✔ 原厂全新件 | 验真通过</div>
+      </div>
+    </div>
+
+    <div class="part-item">
+      <img src="./shachepan.jpg" class="part-img" alt="刹车系统">
+      <div class="part-info">
+        <div class="part-name">制动总泵+刹车盘</div>
+        <div class="part-code">编号：PJ800820230615008</div>
+        <div class="warn">⚠ 配件已更换 | 非原厂备件</div>
       </div>
     </div>
 
@@ -239,20 +319,40 @@ body {
   <div class="card">
     <h3>配件全链路溯源记录</h3>
     <div class="trace-item">
+      <div class="time">2023-05-10 【原料采购】</div>
+      <div class="place">上海钢铁集团 配件原材料采购入库</div>
+    </div>
+    <div class="trace-item">
       <div class="time">2023-05-20 【生产】</div>
       <div class="place">上海汽车动力系统有限公司 生产并上链</div>
+    </div>
+    <div class="trace-item">
+      <div class="time">2023-05-25 【质检】</div>
+      <div class="place">国家汽车零部件质量检测中心 合格认证</div>
     </div>
     <div class="trace-item">
       <div class="time">2023-05-28 【入库】</div>
       <div class="place">上汽集团中央仓库 配件入库登记</div>
     </div>
     <div class="trace-item">
+      <div class="time">2023-06-05 【出库】</div>
+      <div class="place">上汽集团中央仓库 配件出库分配</div>
+    </div>
+    <div class="trace-item">
       <div class="time">2023-06-10 【运输】</div>
-      <div class="place">物流配送 发往整车制造厂</div>
+      <div class="place">京东物流 发往整车制造厂</div>
     </div>
     <div class="trace-item">
       <div class="time">2023-06-15 【装配】</div>
       <div class="place">上汽乘用车郑州工厂 车辆装配完成</div>
+    </div>
+    <div class="trace-item">
+      <div class="time">2023-06-20 【整车检测】</div>
+      <div class="place">上汽乘用车检测中心 车辆下线检测</div>
+    </div>
+    <div class="trace-item">
+      <div class="time">2023-07-10 【商品车运输】</div>
+      <div class="place">整车物流 发往郑州4S店</div>
     </div>
     <div class="trace-item">
       <div class="time">2023-08-01 【销售】</div>
@@ -264,22 +364,38 @@ body {
 <!-- 维保记录 -->
 <div class="page" id="p2">
   <div class="card">
-    <h3>历史维保记录</h3>
+    <h3>历史维保记录（共8次）</h3>
+    <div class="maint-item">
+      <div class="maint-title">2023-08-10 新车首保 | 郑州荣威4S店</div>
+      <div class="maint-desc">全车检查，胎压调整，灯光检测，数据上链</div>
+    </div>
     <div class="maint-item">
       <div class="maint-title">2024-01-10 常规保养 | 郑州荣威4S店</div>
-      <div class="maint-desc">更换机油机滤，全车检测，数据上链</div>
+      <div class="maint-desc">更换机油机滤，空气滤芯，全车检测，数据上链</div>
+    </div>
+    <div class="maint-item">
+      <div class="maint-title">2024-03-15 轮胎修补 | 车享家维修中心</div>
+      <div class="maint-desc">右前轮扎钉修补，动平衡调试</div>
     </div>
     <div class="maint-item">
       <div class="maint-title">2024-05-20 空调维修 | 阳光汽修厂</div>
-      <div class="maint-desc">空调压缩机检测，加注制冷剂</div>
+      <div class="maint-desc">空调压缩机检测，加注制冷剂，更换非原厂压缩机</div>
+    </div>
+    <div class="maint-item">
+      <div class="maint-title">2024-07-08 刹车保养 | 平安汽修</div>
+      <div class="maint-desc">刹车系统养护，更换非原厂刹车盘、刹车片</div>
     </div>
     <div class="maint-item">
       <div class="maint-title">2024-09-05 轮胎更换 | 车享家维修中心</div>
-      <div class="maint-desc">更换前轮轮胎2条，编号：LT202409001</div>
+      <div class="maint-desc">更换前轮轮胎2条，原厂配件，编号：LT202409001</div>
     </div>
     <div class="maint-item">
       <div class="maint-title">2025-01-15 年度大保养 | 郑州荣威4S店</div>
-      <div class="maint-desc">更换刹车油、空气滤、空调滤，全车安全检测</div>
+      <div class="maint-desc">更换刹车油、空气滤、空调滤，火花塞，全车安全检测</div>
+    </div>
+    <div class="maint-item">
+      <div class="maint-title">2025-03-20 电瓶检测 | 郑州荣威4S店</div>
+      <div class="maint-desc">蓄电池健康度检测，充电维护，状态正常</div>
     </div>
   </div>
 </div>
