@@ -186,24 +186,28 @@ body {
   padding: 18px;
   background: #f9fbfd;
   border-radius: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   transition: all 0.25s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-}
-.maint-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 82, 217, 0.08);
 }
 .maint-title {
   font-size: 16px;
   color: #222;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .maint-desc {
   font-size: 14px;
   color: #666;
   line-height: 1.5;
+  margin-bottom: 12px;
+}
+/* 维保单据图片 */
+.maint-img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 </style>
 </head>
@@ -314,89 +318,150 @@ body {
   </div>
 </div>
 
-<!-- 配件溯源 -->
+<!-- 配件溯源（已大幅详细化） -->
 <div class="page" id="p1">
   <div class="card">
     <h3>配件全链路溯源记录</h3>
     <div class="trace-item">
-      <div class="time">2023-05-10 【原料采购】</div>
-      <div class="place">上海钢铁集团 配件原材料采购入库</div>
+      <div class="time">2023-05-10 08:42 【原料采购】</div>
+      <div class="place">
+        上海钢铁集团 · 钢材仓储中心<br>
+        操作人：李工 · 设备编号：SC202305001<br>
+        采购批次：GC20230510-01，材质：汽车专用冷轧钢<br>
+        上链哈希：0x5f2d917a3e0b5c8d2e6f1a4790b3
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-05-20 【生产】</div>
-      <div class="place">上海汽车动力系统有限公司 生产并上链</div>
+      <div class="time">2023-05-20 13:25 【生产加工】</div>
+      <div class="place">
+        上海汽车动力系统有限公司 · 发动机生产线<br>
+        生产线编号：SC-LINE-07 · 质检工位：Q05<br>
+        完成缸体、曲轴、凸轮轴装配，整机性能测试合格<br>
+        上链哈希：0x7a3d129fe5c0b8f2e6d19470b35
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-05-25 【质检】</div>
-      <div class="place">国家汽车零部件质量检测中心 合格认证</div>
+      <div class="time">2023-05-25 09:10 【权威质检】</div>
+      <div class="place">
+        国家汽车零部件质量检测中心 · 零部件检测室<br>
+        检测项目：尺寸精度、硬度、密封性、台架耐久<br>
+        检测结论：全部合格，符合GB/T 15072-2020标准<br>
+        证书编号：JC20230525-008 · 上链登记
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-05-28 【入库】</div>
-      <div class="place">上汽集团中央仓库 配件入库登记</div>
+      <div class="time">2023-05-28 16:30 【配件入库】</div>
+      <div class="place">
+        上汽集团乘用车中央仓库 · 立体仓储区<br>
+        库位编号：R3-08-12 · 扫码入库数量：120台<br>
+        仓库管理系统：WMS2023 · 操作员：王主管<br>
+        上链哈希：0x1c9d7e2a5f4b308e6d19752a0
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-06-05 【出库】</div>
-      <div class="place">上汽集团中央仓库 配件出库分配</div>
+      <div class="time">2023-06-05 10:20 【配件出库】</div>
+      <div class="place">
+        上汽集团中央仓库 · 整车配套出库<br>
+        分配车型：荣威RX5 1.5T · 订单号：PO-202306007<br>
+        复核员：赵质检 · 扫码校验唯一标识码
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-06-10 【运输】</div>
-      <div class="place">京东物流 发往整车制造厂</div>
+      <div class="time">2023-06-10 07:15 【物流运输】</div>
+      <div class="place">
+        京东物流 · 大件零部件专线 · 运单号：JD230610089<br>
+        始发：上海 · 终点：郑州整车工厂<br>
+        全程温控、防震监控，GPS轨迹上链存证
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-06-15 【装配】</div>
-      <div class="place">上汽乘用车郑州工厂 车辆装配完成</div>
+      <div class="time">2023-06-15 11:40 【整车装配】</div>
+      <div class="place">
+        上汽乘用车郑州分公司 · 总装车间A线<br>
+        VIN绑定：LSJA24U68NS123456 · 工位：ENG-03<br>
+        扭矩校验合格，MES系统记录装配参数并上链
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-06-20 【整车检测】</div>
-      <div class="place">上汽乘用车检测中心 车辆下线检测</div>
+      <div class="time">2023-06-20 14:05 【整车下线检测】</div>
+      <div class="place">
+        上汽乘用车检测中心 · 终检线<br>
+        检测：冷启动、加速、制动、电控通讯、OBD读取<br>
+        车辆状态合格，生成整车出厂档案并上链
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-07-10 【商品车运输】</div>
-      <div class="place">整车物流 发往郑州4S店</div>
+      <div class="time">2023-07-10 09:30 【商品车运输】</div>
+      <div class="place">
+        中都物流 · 整车运输板车 · 车牌号：豫A·X8977<br>
+        始发：郑州工厂 · 目的地：郑州荣威4S店<br>
+        车辆外观、里程、钥匙全套核验上链
+      </div>
     </div>
     <div class="trace-item">
-      <div class="time">2023-08-01 【销售】</div>
-      <div class="place">郑州荣威4S店 车辆交付车主</div>
+      <div class="time">2023-08-01 15:20 【销售交付】</div>
+      <div class="place">
+        郑州荣威4S店 · 新车交付区<br>
+        车主：张先生 · 身份证尾号：1234<br>
+        车辆PDI检测完成，随车资料归档，销售数据上链
+      </div>
     </div>
   </div>
 </div>
 
-<!-- 维保记录 -->
+<!-- 维保记录（改为图片展示，直接放纸质单据照片） -->
 <div class="page" id="p2">
   <div class="card">
     <h3>历史维保记录（共8次）</h3>
+
     <div class="maint-item">
       <div class="maint-title">2023-08-10 新车首保 | 郑州荣威4S店</div>
       <div class="maint-desc">全车检查，胎压调整，灯光检测，数据上链</div>
+      <img src="./shoubao1.jpg" class="maint-img" alt="首保单据">
     </div>
+
     <div class="maint-item">
       <div class="maint-title">2024-01-10 常规保养 | 郑州荣威4S店</div>
       <div class="maint-desc">更换机油机滤，空气滤芯，全车检测，数据上链</div>
+      <img src="./baoyang1.jpg" class="maint-img" alt="保养单据">
     </div>
+
     <div class="maint-item">
       <div class="maint-title">2024-03-15 轮胎修补 | 车享家维修中心</div>
       <div class="maint-desc">右前轮扎钉修补，动平衡调试</div>
+      <img src="./luntai3.jpg" class="maint-img" alt="轮胎单据">
     </div>
+
     <div class="maint-item">
       <div class="maint-title">2024-05-20 空调维修 | 阳光汽修厂</div>
       <div class="maint-desc">空调压缩机检测，加注制冷剂，更换非原厂压缩机</div>
+      <img src="./kongtiao4.jpg" class="maint-img" alt="空调单据">
     </div>
+
     <div class="maint-item">
       <div class="maint-title">2024-07-08 刹车保养 | 平安汽修</div>
       <div class="maint-desc">刹车系统养护，更换非原厂刹车盘、刹车片</div>
+      <img src="./shacha5.jpg" class="maint-img" alt="刹车单据">
     </div>
+
     <div class="maint-item">
       <div class="maint-title">2024-09-05 轮胎更换 | 车享家维修中心</div>
       <div class="maint-desc">更换前轮轮胎2条，原厂配件，编号：LT202409001</div>
+      <img src="./luntai6.jpeg" class="maint-img" alt="轮胎更换单据">
     </div>
+
     <div class="maint-item">
       <div class="maint-title">2025-01-15 年度大保养 | 郑州荣威4S店</div>
       <div class="maint-desc">更换刹车油、空气滤、空调滤，火花塞，全车安全检测</div>
+      <img src="./baoyang7.jpg" class="maint-img" alt="大保养单据">
     </div>
+
     <div class="maint-item">
       <div class="maint-title">2025-03-20 电瓶检测 | 郑州荣威4S店</div>
       <div class="maint-desc">蓄电池健康度检测，充电维护，状态正常</div>
+      <img src="./dianping8.jpg" class="maint-img" alt="电瓶检测单据">
     </div>
+
   </div>
 </div>
 
